@@ -4,7 +4,14 @@ const rl = readLine.createInterface({
     output: process.stdout,
 });
 
-let secretNumber = 16;
+let randomInRange = function(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+
+let secretNumber = randomInRange(0, 100)
 
 let checkGuess = function(n) {
     if(n > secretNumber) {
@@ -33,4 +40,23 @@ let askGuess = function() {
     
 }
 
-askGuess()
+
+let handleSecondQuestion = (answer) => {
+    rl.question('Enter a min number: ', (min) => {
+        console.log(`I'm thinking of a number between ${min} and ${answer}...`)
+        secretNumber = randomInRange(min, answer)
+        askGuess();
+    })
+}
+
+let askRange = function() {
+    rl.question('Enter a max number: ', (max) => {
+        handleSecondQuestion(max);
+
+    })
+}
+
+
+
+//askGuess()
+askRange();
