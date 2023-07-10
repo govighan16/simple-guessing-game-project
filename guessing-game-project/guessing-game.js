@@ -4,6 +4,7 @@ const rl = readLine.createInterface({
     output: process.stdout,
 });
 
+
 let randomInRange = function(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -12,6 +13,7 @@ let randomInRange = function(min, max) {
 
 
 let secretNumber = randomInRange(0, 100)
+let numAttempts = 5;
 
 let checkGuess = function(n) {
     if(n > secretNumber) {
@@ -23,7 +25,7 @@ let checkGuess = function(n) {
         return false;
     }
     if(n === secretNumber) {
-        console.log('Correct!')
+        console.log('Correct! 😎')
         return true;
     }
 }
@@ -34,6 +36,10 @@ let askGuess = function() {
             console.log('You win!')
             rl.close();
         } else {
+            numAttempts--;
+            if (numAttempts == 0) {
+                console.log('You lose 🥲')
+            }
             askGuess()
         }
     });
@@ -56,7 +62,15 @@ let askRange = function() {
     })
 }
 
+let askLimit = function() {
+    rl.question('Enter the number of turns: ', (turns) => {
+        numAttempts = Number(turns);
+        askRange();
+    })
+}
+
 
 
 //askGuess()
-askRange();
+//askRange();
+askLimit();
