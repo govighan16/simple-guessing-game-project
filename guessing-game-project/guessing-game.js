@@ -38,9 +38,11 @@ let askGuess = function() {
         } else {
             numAttempts--;
             if (numAttempts == 0) {
-                console.log('You lose 🥲')
-            }
+                console.log('You lose 🥲, ' + ` the correct number was ${secretNumber}`)
+                rl.close();
+            } else {
             askGuess()
+            }
         }
     });
     
